@@ -9,9 +9,9 @@ const adminSchema = new Schema(
     birthday: Date,
     email: String,
     phone: Number,
-    active: Boolean, //Nuevo atributo
-    password: String, //Temporal
-    profilePicture: String, //Temporal
+    active: Boolean, 
+    password: String, 
+    profilePicture: String, 
   },
   {
     timestamps: true,

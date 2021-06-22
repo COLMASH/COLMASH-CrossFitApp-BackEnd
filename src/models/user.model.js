@@ -13,9 +13,9 @@ const userSchema = new Schema(
     phone: Number,
     height: Number,
     weight: Number,
-    active: Boolean, //Nuevo atributo
-    password: String, //Temporal
-    profilePicture: String, //Temporal
+    active: Boolean, 
+    password: String, 
+    profilePicture: String, 
   },
   {
     timestamps: true,
