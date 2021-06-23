@@ -7,7 +7,9 @@ const userRouter = require("./routes/user");
 const coachRouter = require("./routes/coach");
 const adminRouter = require("./routes/admin");
 const wodRouter = require("./routes/wod");
+const { auth } = require("./utils/middlewares");
 const newsRouter = require("./routes/news");
+
 
 const port = process.env.PORT || 8000;
 const app = express();
@@ -22,6 +24,10 @@ app.use("/coach", coachRouter);
 app.use("/admin", adminRouter);
 app.use("/wod", wodRouter);
 app.use("/news", newsRouter);
+
+app.get("/", auth, (req, res) => {
+  res.status(200).json({ message: "estás autenticado" });
+});
 
 app.listen(port, () => {
   console.log(`App running at http://localhost:${port}`);

@@ -9,9 +9,9 @@ const coachSchema = new Schema(
     birthday: Date,
     email: String,
     phone: Number,
-    active: Boolean, 
-    password: String, 
-    profilePicture: String, 
+    active: Boolean,
+    password: String,
+    profilePicture: String,
   },
   {
     timestamps: true,
