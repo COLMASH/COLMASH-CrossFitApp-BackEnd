@@ -17,10 +17,10 @@ app.use(cors());
 app.use(morgan("dev"));
 
 app.use("/user", userRouter);
-app.use("/coach", coachRouter);
+app.use("/coaches", coachRouter);
 app.use("/admin", adminRouter);
 app.use("/wod", wodRouter);
 
 app.listen(port, () => {
-  console.log(`App running at http://localhost:${port}`);
+	console.log(`App running at http://localhost:${port}`);
 });
