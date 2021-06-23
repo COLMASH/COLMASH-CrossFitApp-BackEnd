@@ -1,18 +1,57 @@
-const { Schema, model } = require("mongoose");
+const { Schema, model, models } = require("mongoose");
+
+const emailRegex =
+  /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/;
 
 const adminSchema = new Schema(
   {
-    userTypeCode: String,
-    dni: String,
-    dniType: String,
-    name: String,
-    lastname: String,
-    birthday: Date,
-    email: String,
-    phone: String,
-    active: Boolean,
-    password: String,
-    profilePicture: String,
+    dni: {
+      type: String,
+      required: [true, "El DNI es requerido"],
+    },
+    dniType: {
+      type: String,
+      required: [true, "El tipo de documento es requerido"],
+    },
+    name: {
+      type: String,
+      required: [true, "El nombre es requerido"],
+    },
+    lastname: {
+      type: String,
+      required: [true, "El apellido es requerido"],
+    },
+    birthday: {
+      type: Date,
+      required: false,
+    },
+    email: {
+      type: String,
+      required: false,
+      match: [emailRegex, "El email no es válido"],
+      validate: [
+        {
+          validator(email) {
+            return models.Admin.findOne({ email })
+              .then((user) => !user)
+              .catch(() => false);
+          },
+          message: "El correo ya etá en uso",
+        },
+      ],
+    },
+    phone: {
+      type: String,
+      required: false,
+    },
+    password: {
+      type: String,
+      required: [true, "La contraseña es requerida"],
+    },
+    profilePicture: {
+      type: String,
+      required: false,
+    },
   },
   {
     timestamps: true,
