@@ -1,6 +1,7 @@
 const { Schema, model } = require("mongoose");
 
 const coachSchema = new Schema(
+
 	{
 		dni: String,
 		dniType: String,
