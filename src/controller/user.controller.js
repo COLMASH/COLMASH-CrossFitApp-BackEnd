@@ -9,7 +9,7 @@ module.exports = {
       const user = await User.create(body);
       res.status(201).json(user);
     } catch (error) {
-      res.status(400).json({ message: "Algo salió mal" });
+      res.status(400).json({ message: error.message });
     }
   },
 
