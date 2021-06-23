@@ -1,15 +1,98 @@
 const User = require("../models/user.model");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 
 module.exports = {
-  create(req, res) {
-    const { body } = req;
+  async create(req, res) {
+    try {
+      const { body } = req;
+      const user = await User.create(body);
+      res.status(201).json(user);
+    } catch (error) {
+      res.status(400).json({ message: "Algo salió mal" });
+    }
+  },
 
-    User.create(body)
-      .then((user) => {
-        res.status(201).json(user);
-      })
-      .catch((err) => {
-        res.status(400).json({ message: err.message });
+  async list(req, res) {
+    try {
+      const users = await User.find();
+      res.status(200).json(users);
+    } catch (error) {
+      res.status(400).json({ message: "Algo salió mal" });
+    }
+  },
+
+  async show(req, res) {
+    try {
+      const { userId } = req.params;
+      const user = await User.findById(userId);
+      res.status(200).json(user);
+    } catch (error) {
+      res.status(400).json({ message: "Algo salió mal" });
+    }
+  },
+
+  async update(req, res) {
+    const {
+      params: { userId },
+      body,
+    } = req;
+    const user = await User.findByIdAndUpdate(userId, body, { new: true });
+    res.status(200).json(user);
+    try {
+    } catch (error) {
+      res.status(400).json({ message: "Algo salió mal" });
+    }
+  },
+
+  async destroy(req, res) {
+    try {
+      const { userId } = req.params;
+      const user = await User.findByIdAndDelete(userId);
+      res.status(200).json(user);
+    } catch (error) {
+      res.status(400).json({ message: "Algo salió mal" });
+    }
+  },
+
+  async signup(req, res) {
+    try {
+      const { body } = req;
+      const user = await User.create(body);
+
+      const token = jwt.sign({ userId: user._id }, process.env.SECRET, {
+        expiresIn: 60 * 60 * 24 * 365,
       });
+
+      res.status(201).json({ token });
+    } catch (error) {
+      res.status(400).json({ message: error.message });
+    }
+  },
+
+  async signin(req, res) {
+    try {
+      const { email, password } = req.body;
+
+      const user = await User.findOne({ email });
+
+      if (!user) {
+        throw new Error("Contraseña o correo invalido");
+      }
+
+      const isValid = await bcrypt.compare(password, user.password);
+
+      if (!isValid) {
+        throw new Error("Contraseña o correo invalido");
+      }
+
+      const token = jwt.sign({ userId: user._id }, process.env.SECRET, {
+        expiresIn: 60 * 60 * 24 * 365,
+      });
+
+      res.status(201).json({ token });
+    } catch (error) {
+      res.status(400).json({ message: error.message });
+    }
   },
 };
