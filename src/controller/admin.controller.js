@@ -1,64 +1,54 @@
 const Admin = require("../models/admin.model");
 
 module.exports = {
-  create(req, res) {
-    const { body } = req;
+  async create(req, res) {
+    try {
+      const { body } = req;
 
-    Admin.create(body)
-      .then((admin) => {
-        res.status(201).json(admin);
-      })
-      .catch((err) => {
-        res.status(400).json({ message: err.message });
-      });
+      const admin = await Admin.create(body);
+      res.status(201).json(admin);
+    } catch (err) {
+      res.status(400).json({ message: err.message });
+    }
+  },
+  async list(req, res) {
+    try {
+      const admins = await Admin.find();
+      res.status(200).json(admins);
+    } catch (err) {
+      res.status(400).json({ message: err.message });
+    }
+  },
+  async show(req, res) {
+    try {
+      const { adminId } = req.params;
+      const admin = await Admin.findById(adminId);
+      res.status(200).json(admin);
+    } catch (err) {
+      res.status(404).json({ message: err.message });
+    }
   },
 
-  list(req, res) {
-    Admin.find()
-      .then((admin) => {
-        res.status(200).json(admin);
-      })
-      .catch((err) => {
-        res.status(400).json({ message: err.message });
-      });
+  async update(req, res) {
+    try {
+      const {
+        params: { adminId },
+        body,
+      } = req;
+      const admin = await Admin.findByIdAndUpdate(adminId, body, { new: true });
+      res.status(200).json(admin);
+    } catch (err) {
+      res.status(400).json({ message: err.message });
+    }
   },
 
-  show(req, res) {
-    const { adminId } = req.params;
-
-    Admin.findById(adminId)
-      .then((admin) => {
-        res.status(200).json(admin);
-      })
-      .catch((err) => {
-        res.status(404).json({ message: err.message });
-      });
-  },
-
-  update(req, res) {
-    const {
-      params: { adminId },
-      body,
-    } = req;
-
-    Admin.findByIdAndUpdate(adminId, body, { new: true })
-      .then((admin) => {
-        res.status(200).json(admin);
-      })
-      .catch((err) => {
-        res.status(400).json({ message: err.message });
-      });
-  },
-
-  destroy(req, res) {
-    const { adminId } = req.params;
-
-    Admin.findByIdAndDelete(adminId)
-      .then((admin) => {
-        res.status(200).json(admin);
-      })
-      .catch((err) => {
-        res.status(400).json({ message: err.message });
-      });
+  async destroy(req, res) {
+    try {
+      const { adminId } = req.params;
+      const admin = await Admin.findByIdAndDelete(adminId);
+      res.status(200).json(admin);
+    } catch (err) {
+      res.status(400).json({ message: err.message });
+    }
   },
 };
