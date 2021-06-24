@@ -3,16 +3,21 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 
 module.exports = {
-	async create(req, res) {
+  async signup(req, res) {
     try {
-		  const { body } = req
-      const coach = await Coach.create(body)
-      res.status(201).json(coach)
-    } catch(err) {
-      res.status(400).json({ message: err.message })
+      const { body } = req;
+      const coach = await Coach.create(body);
+  
+      const token = jwt.sign({ coachId: coach._id }, process.env.SECRET, {
+        expiresIn: 60 * 60 * 24 * 365,
+      });
+  
+      res.status(201).json({ token });
+    } catch (err) {
+      res.status(400).json({ message: err.message });
     }
-	},
-
+  },
+  
 	async list(req, res) {
     try {
       const coaches = await Coach.find()
@@ -57,20 +62,6 @@ module.exports = {
 			}
 	},
 
-  async signup(req, res) {
-    try {
-      const { body } = req;
-      const coach = await Coach.create(body);
-
-      const token = jwt.sign({ coachId: coach._id }, process.env.SECRET, {
-        expiresIn: 60 * 60 * 24 * 365,
-      });
-
-      res.status(201).json({ token });
-    } catch (err) {
-      res.status(400).json({ message: err.message });
-    }
-  },
 
   async signin(req, res) {
     try {
