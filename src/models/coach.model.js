@@ -56,18 +56,11 @@ const coachSchema = new Schema({
 	}
 );
 
-coachSchema.pre("save", function (next) {
-  var user = this;
-  if (!user.isModified("password")) return next();
-  bcrypt.genSalt(5, async function (err, salt) {
-    if (err) return next(err);
-    await bcrypt.hash(user.password, salt, function (err, hash) {
-      if (err) return next(err);
-      user.password = hash;
-      next();
-    });
-  });
-});
+coachSchema.pre('save', async function() {
+  if(this.password && this.isModified('password')) {
+    this.password = await bcrypt.hash(this.password, 8)
+  }
+})
 
 const Coach = model("Coach", coachSchema);
 
