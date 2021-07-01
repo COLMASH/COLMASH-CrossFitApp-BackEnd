@@ -1,5 +1,5 @@
-const jwt = require("jsonwebtoken")
-const bcrypt=require('bcrypt')
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 
 const Admin = require("../models/admin.model");
 
@@ -46,43 +46,36 @@ module.exports = {
     }
   },
 
-  async signup(req,res){
-    try{
-      const{body} = req;
+  async signup(req, res) {
+    try {
+      const { body } = req;
       const admin = await Admin.create(body);
-      const token = jwt.sign({adminId: admin._id}, process.env.SECRET, {
-        expiresIn:60*60*24*365,
+      const token = jwt.sign({ adminId: admin._id }, process.env.SECRET, {
+        expiresIn: 60 * 60 * 24 * 365,
       });
-      res.status(201).json({token})
-        }catch(error){
-      res.status(400).json('Error registrando un administrador')
+      res.status(201).json({ token });
+    } catch (error) {
+      res.status(400).json("Error registrando un administrador");
     }
   },
 
   async signin(req, res) {
     try {
-      const { email, password } = req.body
-      const admin = await Admin.findOne({ email })
+      const { email, password } = req.body;
+      const admin = await Admin.findOne({ email });
       if (!admin) {
-        throw new Error('correo inválido')
+        throw new Error("Contraseña o correo inválidos");
       }
-      const isValid = await bcrypt.compare(password, admin.password)
-      console.log(password)
-      console.log(admin.password)
-      console.log(isValid)
+      const isValid = await bcrypt.compare(password, admin.password);
       if (!isValid) {
-        throw new Error('contraseña inválido')
+        throw new Error("Contraseña o correo inválidos");
       }
       const token = jwt.sign({ adminId: admin._id }, process.env.SECRET, {
-        expiresIn: 60 * 60 * 24 * 365
-      })
-      res.status(201).json({ token })
+        expiresIn: 60 * 60 * 24 * 365,
+      });
+      res.status(201).json({ token });
     } catch (error) {
-      res.status(400).json({message: error.message})
-      console.log(error)
+      res.status(400).json({ message: error.message });
     }
-  }
-
-
-
+  },
 };
