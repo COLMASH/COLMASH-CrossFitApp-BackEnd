@@ -1,3 +1,5 @@
+const bcrypt = require('bcrypt')
+
 const { Schema, model, models } = require("mongoose");
 
 const emailRegex =
@@ -23,17 +25,16 @@ const adminSchema = new Schema(
     },
     birthday: {
       type: Date,
-      required: false,
     },
     email: {
       type: String,
-      required: false,
+      required: [true, 'El campo email es requerido' ],
       match: [emailRegex, "El email no es válido"],
       validate: [
         {
           validator(email) {
             return models.Admin.findOne({ email })
-              .then((user) => !user)
+              .then((admin) => !admin)
               .catch(() => false);
           },
           message: "El correo ya etá en uso",
@@ -57,6 +58,12 @@ const adminSchema = new Schema(
     timestamps: true,
   }
 );
+
+adminSchema.pre('save', async function() {
+  if(this.password && this.isModified('password')) {
+    this.password = await bcrypt.hash(this.password, 8)
+  }
+})
 
 const Admin = model("Admin", adminSchema);
 
