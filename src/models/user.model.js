@@ -9,7 +9,7 @@ const userSchema = new Schema(
     dni: Number,
     dniType: {
       type: String,
-      required: [true, "El campo id es requerido"],
+      required: [true, "El campo dni es requerido"],
     },
     name: {
       type: String,
@@ -60,17 +60,10 @@ const userSchema = new Schema(
   }
 );
 
-userSchema.pre("save", function (next) {
-  var user = this;
-  if (!user.isModified("password")) return next();
-  bcrypt.genSalt(5, function (err, salt) {
-    if (err) return next(err);
-    bcrypt.hash(user.password, salt, function (err, hash) {
-      if (err) return next(err);
-      user.password = hash;
-      next();
-    });
-  });
+userSchema.pre("save", async function () {
+  if (this.password && this.isModified("password")) {
+    this.password = await bcrypt.hash(this.password, 8);
+  }
 });
 
 const User = model("User", userSchema);
