@@ -3,22 +3,12 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
 module.exports = {
-  async create(req, res) {
-    try {
-      const { body } = req;
-      const user = await User.create(body);
-      res.status(201).json(user);
-    } catch (error) {
-      res.status(400).json({ message: "Algo salió mal" });
-    }
-  },
-
   async list(req, res) {
     try {
       const users = await User.find();
       res.status(200).json(users);
     } catch (error) {
-      res.status(400).json({ message: "Algo salió mal" });
+      res.status(400).json({ message: error.message });
     }
   },
 
@@ -28,7 +18,7 @@ module.exports = {
       const user = await User.findById(userId);
       res.status(200).json(user);
     } catch (error) {
-      res.status(400).json({ message: "Algo salió mal" });
+      res.status(400).json({ message: error.message });
     }
   },
 
@@ -41,7 +31,7 @@ module.exports = {
     res.status(200).json(user);
     try {
     } catch (error) {
-      res.status(400).json({ message: "Algo salió mal" });
+      res.status(400).json({ message: error.message });
     }
   },
 
@@ -51,7 +41,7 @@ module.exports = {
       const user = await User.findByIdAndDelete(userId);
       res.status(200).json(user);
     } catch (error) {
-      res.status(400).json({ message: "Algo salió mal" });
+      res.status(400).json({ message: error.message });
     }
   },
 

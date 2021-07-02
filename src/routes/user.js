@@ -1,7 +1,6 @@
 const router = require("express").Router();
 const userController = require("../controller/user.controller");
 
-router.route("/").post(userController.create);
 router.route("/").get(userController.list);
 router.route("/:userId").get(userController.show);
 router.route("/:userId").put(userController.update);
