@@ -14,7 +14,7 @@ module.exports = {
 
   async show(req, res) {
     try {
-      const { userId } = req.params;
+      const { userId } = req;
       const user = await User.findById(userId);
       res.status(200).json(user);
     } catch (error) {
