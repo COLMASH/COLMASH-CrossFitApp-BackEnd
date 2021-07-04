@@ -14,10 +14,11 @@ exports.auth = (req, res, next) => {
       throw new Error("Su sesión expiró");
     }
 
-    const { userId, coachId } = jwt.verify(token, process.env.SECRET);
+    const { userId, coachId, adminId } = jwt.verify(token, process.env.SECRET);
 
-    req.user = userId;
-    req.coach = coachId;
+    req.userId = userId;
+    req.coachId = coachId;
+    req.adminId = adminId;
 
     next();
   } catch (error) {
