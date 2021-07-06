@@ -23,10 +23,7 @@ module.exports = {
   },
 
   async update(req, res) {
-    const {
-      params: { userId },
-      body,
-    } = req;
+    const { userId, body } = req;
     const user = await User.findByIdAndUpdate(userId, body, { new: true });
     res.status(200).json(user);
     try {
@@ -37,7 +34,7 @@ module.exports = {
 
   async destroy(req, res) {
     try {
-      const { userId } = req.params;
+      const { userId } = req;
       const user = await User.findByIdAndDelete(userId);
       res.status(200).json(user);
     } catch (error) {

@@ -15,7 +15,7 @@ module.exports = {
 
   async show(req, res) {
     try {
-      const { adminId } = req.params;
+      const { adminId } = req;
       const admin = await Admin.findById(adminId);
       res.status(200).json(admin);
     } catch (err) {
@@ -25,10 +25,7 @@ module.exports = {
 
   async update(req, res) {
     try {
-      const {
-        params: { adminId },
-        body,
-      } = req;
+      const { adminId, body } = req;
       const admin = await Admin.findByIdAndUpdate(adminId, body, { new: true });
       res.status(200).json(admin);
     } catch (err) {
@@ -38,7 +35,7 @@ module.exports = {
 
   async destroy(req, res) {
     try {
-      const { adminId } = req.params;
+      const { adminId } = req;
       const admin = await Admin.findByIdAndDelete(adminId);
       res.status(200).json(admin);
     } catch (err) {
