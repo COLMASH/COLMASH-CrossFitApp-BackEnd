@@ -29,7 +29,7 @@ module.exports = {
 
 	async show(req, res) {
     try{
-      const { coachId } = req.params
+      const { coachId } = req
       const coach = await Coach.findById(coachId)
       res.status(200).json(coach);
     } catch (err) {
@@ -40,7 +40,7 @@ module.exports = {
 	async update(req, res) {
     try {
       const {
-        params: { coachId },
+        coachId,
         body,
       } = req;
       const coach = await Coach.findByIdAndUpdate(coachId, body, {
@@ -54,7 +54,7 @@ module.exports = {
 
 	async destroy(req, res) {
     try {
-      const { coachId } = req.params;
+      const { coachId } = req;
       const coach = await Coach.findByIdAndDelete(coachId)
       res.status(200).json(coach);
     } catch(err) {

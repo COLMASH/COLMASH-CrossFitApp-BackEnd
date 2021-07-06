@@ -31,7 +31,7 @@ const coachSchema = new Schema({
               .then(coach => !coach)
               .catch(() => false)
           },
-          message: 'Elcorreo esta en uso'
+          message: 'El correo está en uso'
         }
       ]
     },
