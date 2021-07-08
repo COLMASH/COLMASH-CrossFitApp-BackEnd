@@ -51,7 +51,7 @@ module.exports = {
         expiresIn: 60 * 60 * 24 * 365,
       });
 
-      res.status(201).json(body);
+      res.status(201).json(token);
     } catch (error) {
       res.status(400).json({ message: error.message });
     }
