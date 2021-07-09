@@ -1,4 +1,4 @@
-const bcrypt = require('bcrypt')
+const bcrypt = require("bcrypt");
 
 const { Schema, model, models } = require("mongoose");
 
@@ -28,7 +28,7 @@ const adminSchema = new Schema(
     },
     email: {
       type: String,
-      required: [true, 'El campo email es requerido' ],
+      required: [true, "El campo email es requerido"],
       match: [emailRegex, "El email no es válido"],
       validate: [
         {
@@ -59,11 +59,11 @@ const adminSchema = new Schema(
   }
 );
 
-adminSchema.pre('save', async function() {
-  if(this.password && this.isModified('password')) {
-    this.password = await bcrypt.hash(this.password, 8)
+adminSchema.pre("save", async function () {
+  if (this.password && this.isModified("password")) {
+    this.password = await bcrypt.hash(this.password, 8);
   }
-})
+});
 
 const Admin = model("Admin", adminSchema);
 
