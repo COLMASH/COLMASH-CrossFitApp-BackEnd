@@ -23,7 +23,6 @@ module.exports = {
   async show(req, res) {
     try {
       const { planId } = req.params;
-      console.log(planId);
       const plan = await Plan.findById(planId);
       res.status(200).json(plan);
     } catch (err) {
@@ -44,7 +43,6 @@ module.exports = {
   async destroy(req, res) {
     try {
       const { planId } = req.params;
-      console.log(planId);
       const plan = await Plan.findByIdAndDelete(planId);
       res.status(200).json(plan);
     } catch (err) {
