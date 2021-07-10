@@ -7,6 +7,7 @@ const connect = require("./db");
 const userRouter = require("./routes/user");
 const coachRouter = require("./routes/coach");
 const adminRouter = require("./routes/admin");
+const exerciseRouter = require("./routes/exercise");
 
 const { auth } = require("./utils/middlewares");
 
@@ -21,6 +22,7 @@ app.use(morgan("dev"));
 app.use("/user", userRouter);
 app.use("/coaches", coachRouter);
 app.use("/admin", adminRouter);
+app.use("/exercise", exerciseRouter);
 
 app.get("/", auth, (req, res) => {
   res.status(200).json({ message: "estás autenticado" });
