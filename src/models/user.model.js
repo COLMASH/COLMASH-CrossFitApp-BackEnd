@@ -53,7 +53,10 @@ const userSchema = new Schema(
       type: String,
       required: [true, "El campo contraseña es requerido"],
     },
-    profilePicture: String,
+    profilePicture: {
+      type: String,
+      default: "http://barsensei.ninja/assets/images/users/avatar6.png",
+    },
   },
   {
     timestamps: true,
