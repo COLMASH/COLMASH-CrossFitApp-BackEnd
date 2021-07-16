@@ -7,10 +7,7 @@ const emailRegex =
 const userSchema = new Schema(
   {
     dni: Number,
-    dniType: {
-      type: String,
-      required: [true, "El campo dni es requerido"],
-    },
+    dniType: String,
     name: {
       type: String,
       required: [true, "El campo nombre es requerido"],
@@ -55,7 +52,8 @@ const userSchema = new Schema(
     },
     profilePicture: {
       type: String,
-      default: "http://barsensei.ninja/assets/images/users/avatar6.png",
+      default:
+        "https://res.cloudinary.com/mashcol/image/upload/v1626054119/crossfitapp-profileImages/john-doe_lny628.png",
     },
   },
   {
