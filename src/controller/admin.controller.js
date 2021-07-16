@@ -62,35 +62,30 @@ module.exports = {
 
   async signin(req, res) {
     try {
-      console.log(req.body);
       const { email, password } = req.body;
       const admin = await Admin.findOne({ email });
 
       if (!admin) {
         throw new Error("Contraseña o correo inválidos");
       }
-      console.log(admin, password);
       const isValid = await bcrypt.compare(password, admin.password);
-      console.log(isValid);
       if (!isValid) {
         throw new Error("Contraseña o correo inválidos");
       }
       const token = jwt.sign({ adminId: admin._id }, process.env.SECRET, {
         expiresIn: 60 * 60 * 24 * 365,
       });
-      res
-        .status(201)
-        .json({
-          token,
-          admin: {
-            name: admin.name,
-            lastname: admin.lastname,
-            dniType: admin.dniType,
-            email: admin.email,
-            phone: admin.phone,
-            birthday: admin.birthday,
-          },
-        });
+      res.status(201).json({
+        token,
+        admin: {
+          name: admin.name,
+          lastname: admin.lastname,
+          dniType: admin.dniType,
+          email: admin.email,
+          phone: admin.phone,
+          birthday: admin.birthday,
+        },
+      });
     } catch (error) {
       res.status(400).json({ message: error.message });
     }
