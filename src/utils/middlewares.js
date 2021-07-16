@@ -87,3 +87,38 @@ exports.formData = (req, res, next) => {
 
   req.pipe(busboy);
 };
+
+exports.userFilter = (req, res, next) => {
+  if (req.body.name === "") {
+    delete req.body.name;
+  }
+  if (req.body.lastname === "") {
+    delete req.body.lastname;
+  }
+  if (req.body.dniType === "") {
+    delete req.body.dniType;
+  }
+  if (req.body.dni === "") {
+    delete req.body.dni;
+  }
+  if (req.body.address === "") {
+    delete req.body.address;
+  }
+  if (req.body.neighborhood === "") {
+    delete req.body.neighborhood;
+  }
+  if (req.body.phone === "") {
+    delete req.body.phone;
+  }
+  if (req.body.height === "") {
+    delete req.body.height;
+  }
+  if (req.body.weight === "") {
+    delete req.body.weight;
+  }
+  if (req.body.birthday === "") {
+    delete req.body.birthday;
+  }
+
+  next();
+};
