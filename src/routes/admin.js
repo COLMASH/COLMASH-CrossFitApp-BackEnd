@@ -2,7 +2,7 @@ const router = require("express").Router();
 const adminController = require("../controller/admin.controller");
 const { auth } = require("../utils/middlewares");
 
-router.route("/").get(adminController.list);
+router.route("/adminList").get(adminController.list);
 router.route("/adminInfo").get(auth, adminController.show);
 router.route("/:adminId").put(adminController.update);
 router.route("/:adminId").delete(adminController.destroy);
