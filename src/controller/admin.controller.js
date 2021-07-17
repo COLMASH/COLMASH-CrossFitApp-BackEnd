@@ -75,15 +75,17 @@ module.exports = {
       const token = jwt.sign({ adminId: admin._id }, process.env.SECRET, {
         expiresIn: 60 * 60 * 24 * 365,
       });
+
       res.status(201).json({
         token,
         admin: {
           name: admin.name,
           lastname: admin.lastname,
+          dni: admin.dni,
           dniType: admin.dniType,
+          birthday: admin.birthday,
           email: admin.email,
           phone: admin.phone,
-          birthday: admin.birthday,
         },
       });
     } catch (error) {
