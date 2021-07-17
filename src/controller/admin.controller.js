@@ -39,7 +39,7 @@ module.exports = {
   async destroy(req, res) {
     try {
       const { adminId } = req.params;
-      console.log(adminId);
+
       const admin = await Admin.findByIdAndDelete(adminId);
       res.status(200).json(admin);
     } catch (err) {
