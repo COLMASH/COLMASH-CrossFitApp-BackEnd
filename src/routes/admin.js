@@ -5,8 +5,8 @@ const { auth } = require("../utils/middlewares");
 router.route("/adminList").get(adminController.list);
 router.route("/adminInfo").get(auth, adminController.show);
 router.route("/:adminId").put(adminController.update);
-router.route("/:adminId").delete(adminController.destroy);
-router.route("/signup").post(adminController.signup);
+router.route("/adminDelete").delete(adminController.destroy);
+router.route("/create").post(adminController.create);
 router.route("/signin").post(adminController.signin);
 
 module.exports = router;

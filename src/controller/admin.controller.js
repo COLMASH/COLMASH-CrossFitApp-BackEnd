@@ -6,7 +6,7 @@ const Admin = require("../models/admin.model");
 module.exports = {
   async list(req, res) {
     try {
-      const admins = await Admin.find();
+      const admins = await Admin.find({}).select({ password: 0 });
       res.status(200).json(admins);
     } catch (err) {
       res.status(400).json({ message: "Error en la obtención de los datos." });
@@ -38,8 +38,7 @@ module.exports = {
 
   async destroy(req, res) {
     try {
-      const { adminId } = req.params;
-
+      const { adminId } = req.body;
       const admin = await Admin.findByIdAndDelete(adminId);
       res.status(200).json(admin);
     } catch (err) {
@@ -55,6 +54,16 @@ module.exports = {
         expiresIn: 60 * 60 * 24 * 365,
       });
       res.status(201).json({ token });
+    } catch (error) {
+      res.status(400).json("Error registrando un administrador");
+    }
+  },
+
+  async create(req, res) {
+    try {
+      const { body } = req;
+      const admin = await Admin.create(body);
+      res.status(201).json(admin);
     } catch (error) {
       res.status(400).json("Error registrando un administrador");
     }
@@ -79,6 +88,7 @@ module.exports = {
       res.status(201).json({
         token,
         admin: {
+          id: admin.id,
           name: admin.name,
           lastname: admin.lastname,
           dni: admin.dni,
