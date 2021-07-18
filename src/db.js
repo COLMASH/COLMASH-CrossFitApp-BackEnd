@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 function connect() {
-  const mongoURI = process.env.MONGO_URI || 'mongodb://localhost:27017/database'
+  const mongoURI = process.env.MONGO_URI || 'mongodb://localhost:27017/crossfitapp'
   const options = {
     useNewUrlParser: true,
     useUnifiedTopology: true,

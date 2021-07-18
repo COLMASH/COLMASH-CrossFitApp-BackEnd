@@ -40,7 +40,7 @@ module.exports = {
 	async update(req, res) {
     try {
       const {
-        params:{coachId},
+        coachId,
         body,
       } = req;
       const coach = await Coach.findByIdAndUpdate(coachId, body, {
