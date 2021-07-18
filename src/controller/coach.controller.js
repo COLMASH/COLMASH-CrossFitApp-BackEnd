@@ -30,7 +30,7 @@ module.exports = {
 	async show(req, res) {
     try{
       const { coachId } = req
-      const coach = await Coach.findById(coachId)
+      const coach = await Coach.findById(coachId);
       res.status(200).json(coach);
     } catch (err) {
       res.status(404).json({ message: err.message });
