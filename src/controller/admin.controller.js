@@ -25,14 +25,23 @@ module.exports = {
 
   async update(req, res) {
     try {
-      const {
-        params: { adminId },
-        body,
-      } = req;
-      const admin = await Admin.findByIdAndUpdate(adminId, body, { new: true });
-      res.status(200).json(admin);
+      const { adminId, body } = req;
+      const admin = await Admin.findByIdAndUpdate(adminId, body, {
+        new: true,
+      });
+      res.status(200).json({
+        id: admin.id,
+        name: admin.name,
+        lastname: admin.lastname,
+        dni: admin.dni,
+        dniType: admin.dniType,
+        birthday: admin.birthday,
+        email: admin.email,
+        phone: admin.phone,
+        profilePicture: admin.profilePicture,
+      });
     } catch (err) {
-      res.status(400).json({ message: "Error actuallizando los datos" });
+      res.status(400).json({ message: err.message });
     }
   },
 
