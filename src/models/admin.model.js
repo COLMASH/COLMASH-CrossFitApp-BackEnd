@@ -51,7 +51,7 @@ const adminSchema = new Schema(
     },
     profilePicture: {
       type: String,
-      required: false,
+      default: "http://barsensei.ninja/assets/images/users/avatar6.png",
     },
   },
   {
