@@ -20,7 +20,9 @@ const coachSchema = new Schema({
       type: String,
       required: [true, 'El campo apellido es requerido'],
     },
-		birthday: Date,
+		birthday: {
+      type: Date,
+    },
 		email: {
       type: String,
       required: [true, 'El campo email es requerido'],
@@ -50,7 +52,6 @@ const coachSchema = new Schema({
     },
 		profilePicture: {
       type: String,
-      default: "http://barsensei.ninja/assets/images/users/avatar6.png",
     },
 	},
 	{
