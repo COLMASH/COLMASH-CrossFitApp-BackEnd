@@ -88,6 +88,7 @@ module.exports = {
           height: user.height,
           weight: user.weight,
           active: user.active,
+          profilePicture: user.profilePicture,
         },
       });
     } catch (error) {
