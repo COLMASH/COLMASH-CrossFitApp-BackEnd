@@ -3,6 +3,7 @@ const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
 const connect = require("./db");
+const { verify } = require("./utils/mailer");
 
 const userRouter = require("./routes/user");
 const coachRouter = require("./routes/coach");
@@ -17,11 +18,14 @@ const exerciseRouter = require("./routes/exercise");
 const port = process.env.PORT || 8000;
 const app = express();
 connect();
+verify();
 
 app.use(express.json());
-app.use(cors({
-  // origin: process.env.FRONTEND_URL,
-}));
+app.use(
+  cors({
+    // origin: process.env.FRONTEND_URL,
+  })
+);
 app.use(morgan("dev"));
 
 app.use("/user", userRouter);
