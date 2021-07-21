@@ -1,6 +1,7 @@
 const User = require("../models/user.model");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+const { welcome } = require("../utils/mailer");
 
 module.exports = {
   async list(req, res) {
@@ -50,6 +51,7 @@ module.exports = {
       const token = jwt.sign({ userId: user._id }, process.env.SECRET, {
         expiresIn: 60 * 60 * 24 * 365,
       });
+      await welcome(user);
 
       res.status(201).json({ token });
     } catch (error) {
