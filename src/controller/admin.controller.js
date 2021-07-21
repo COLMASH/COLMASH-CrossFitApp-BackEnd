@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+const { welcomeAdmin } = require("../utils/mailer");
 
 const Admin = require("../models/admin.model");
 
@@ -73,6 +74,8 @@ module.exports = {
       const { body } = req;
       const admin = await Admin.create(body);
       res.status(201).json(admin);
+      await welcomeAdmin(admin);
+      res.status(201).json({ message: "Revisa el correo" });
     } catch (error) {
       res.status(400).json("Error registrando un administrador");
     }

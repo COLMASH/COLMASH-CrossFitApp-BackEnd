@@ -43,7 +43,7 @@ const adminSchema = new Schema(
     },
     phone: {
       type: String,
-      required: false,
+      required: true,
     },
     password: {
       type: String,
@@ -51,7 +51,6 @@ const adminSchema = new Schema(
     },
     profilePicture: {
       type: String,
-      default: "http://barsensei.ninja/assets/images/users/avatar6.png",
     },
   },
   {
