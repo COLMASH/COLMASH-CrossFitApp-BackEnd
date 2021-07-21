@@ -10,6 +10,7 @@ const coachSchema = new Schema({
     },
 		dniType: {
       type: String,
+      required: [true, 'El campo dniType es requerido'],
     },
 		name: {
       type: String,
@@ -49,6 +50,7 @@ const coachSchema = new Schema({
     },
 		profilePicture: {
       type: String,
+      default: "http://barsensei.ninja/assets/images/users/avatar6.png",
     },
 	},
 	{
