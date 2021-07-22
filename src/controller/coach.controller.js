@@ -17,19 +17,31 @@ module.exports = {
     }
   },
 
+  async create(req, res) {
+    try {
+      console.log("llego la peticion");
+      const { body } = req;
+      const coach = await Coach.create(body);
+      res.status(201).json(coach);
+      //await welcomeCoach(coach);
+      res.status(201).json({ message: "Revisa el correo" });
+    } catch (error) {
+      res.status(400).json("Error registrando un administrador");
+    }
+  },
+
   async list(req, res) {
     try {
-      const coaches = await Coach.find();
+      const coaches = await Coach.find({}).select({ password: 0 });
       res.status(200).json(coaches);
     } catch (err) {
       res.status(400).json({ message: err.message });
     }
   },
 
-
-	async show(req, res) {
-    try{
-      const { coachId } = req
+  async show(req, res) {
+    try {
+      const { coachId } = req;
 
       const coach = await Coach.findById(coachId);
       res.status(200).json(coach);
@@ -52,7 +64,7 @@ module.exports = {
 
   async destroy(req, res) {
     try {
-      const { coachId } = req;
+      const { coachId } = req.body;
       const coach = await Coach.findByIdAndDelete(coachId);
       res.status(200).json(coach);
     } catch (err) {
