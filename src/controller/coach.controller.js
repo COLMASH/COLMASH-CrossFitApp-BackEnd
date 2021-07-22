@@ -44,7 +44,16 @@ module.exports = {
       const coach = await Coach.findByIdAndUpdate(coachId, body, {
         new: true,
       });
-      res.status(200).json(coach);
+      res.status(200).json({
+        name: coach.name,
+        lastname: coach.lastname,
+        dni: coach.dni,
+        dniType: coach.dniType,
+        birthday: coach.birthday,
+        email: coach.email,
+        phone: coach.phone,
+        profilePicture: coach.profilePicture,
+      });
     } catch (err) {
       res.status(400).json({ message: err.message });
     }
@@ -90,6 +99,7 @@ module.exports = {
           email: coach.email,
           phone: coach.phone,
           active: coach.active,
+          profilePicture: coach.profilePicture,
         },
       });
     } catch (err) {
