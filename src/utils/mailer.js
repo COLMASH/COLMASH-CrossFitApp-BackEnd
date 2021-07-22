@@ -35,8 +35,29 @@ async function welcome({ email, name }) {
   });
 }
 
+async function welcomeAdmin({ email, name, password }) {
+  await transporter.sendMail({
+    from: `"${process.env.MAILER_USERNAME}" <${process.env.MAILER_USER}>`,
+    to: email,
+    subject: "Welcome to our Team",
+    html: `
+      <div>
+        <h1>Hello ${name}</h1>
+        <br/>
+        <p>Welcome to our CROSSFITAPP community!, you have been registered as administrator in the app, your access password is your DNI number.</p>
+        <br/>
+        <a href="http://localhost:3000">Go to CROSSFITAPP here!</a>
+        <br/>
+        <br/>
+        <img width="500" height="300" src="https://res.cloudinary.com/mashcol/image/upload/v1626845873/crossfitapp-profileImages/crossfitapp-community_jgx63m.jpg" />
+      </div>
+    `,
+  });
+}
+
 module.exports = {
   transporter,
   verify,
   welcome,
+  welcomeAdmin,
 };
