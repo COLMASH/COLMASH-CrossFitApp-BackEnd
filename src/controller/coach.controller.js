@@ -19,12 +19,11 @@ module.exports = {
 
   async create(req, res) {
     try {
-      console.log("llego la peticion");
+      
       const { body } = req;
       const coach = await Coach.create(body);
       res.status(201).json(coach);
-      //await welcomeCoach(coach);
-      res.status(201).json({ message: "Revisa el correo" });
+      
     } catch (error) {
       res.status(400).json("Error registrando un administrador");
     }
