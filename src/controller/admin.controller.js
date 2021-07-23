@@ -10,7 +10,7 @@ module.exports = {
       const admins = await Admin.find({}).select({ password: 0 });
       res.status(200).json(admins);
     } catch (err) {
-      res.status(400).json({ message: "Error en la obtención de los datos." });
+      res.status(400).json({ message: err.message });
     }
   },
 
