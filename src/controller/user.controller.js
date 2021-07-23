@@ -6,7 +6,7 @@ const { welcome } = require("../utils/mailer");
 module.exports = {
   async list(req, res) {
     try {
-      const users = await User.find();
+      const users = await User.find({}).select({ password: 0 });
       res.status(200).json(users);
     } catch (error) {
       res.status(400).json({ message: error.message });
