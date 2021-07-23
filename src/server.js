@@ -8,6 +8,7 @@ const { verify } = require("./utils/mailer");
 const userRouter = require("./routes/user");
 const coachRouter = require("./routes/coach");
 const adminRouter = require("./routes/admin");
+const wodRouter = require("./routes/wod");
 
 const { auth } = require("./utils/middlewares");
 
@@ -33,6 +34,7 @@ app.use("/coaches", coachRouter);
 app.use("/admin", adminRouter);
 app.use("/plan", planRouter);
 app.use("/exercise", exerciseRouter);
+app.use("/wod", wodRouter);
 
 app.get("/", auth, (req, res) => {
   res.status(200).json({ message: "estás autenticado" });
