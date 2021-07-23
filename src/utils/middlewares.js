@@ -88,9 +88,8 @@ exports.formData = (req, res, next) => {
   req.pipe(busboy);
 };
 
-
 exports.adminFilter = (req, res, next) => {
-if (req.body.name === "") {
+  if (req.body.name === "") {
     delete req.body.name;
   }
   if (req.body.lastname === "") {
@@ -102,15 +101,15 @@ if (req.body.name === "") {
   if (req.body.dni === "") {
     delete req.body.dni;
   }
-    if (req.body.phone === "") {
+  if (req.body.phone === "") {
     delete req.body.phone;
   }
-   if (req.body.birthday === "") {
+  if (req.body.birthday === "") {
     delete req.body.birthday;
   }
   next();
-}
-  
+};
+
 exports.userFilter = (req, res, next) => {
   if (req.body.name === "") {
     delete req.body.name;
@@ -164,6 +163,29 @@ exports.coachFilter = (req, res, next) => {
   }
   if (req.body.birthday === "") {
     delete req.body.birthday;
+  }
+
+  next();
+};
+
+exports.wodFilter = (req, res, next) => {
+  if (req.body.activity === "") {
+    delete req.body.activity;
+  }
+  if (req.body.modality === "") {
+    delete req.body.modality;
+  }
+  if (req.body.exercices === "") {
+    delete req.body.exercices;
+  }
+  if (req.body.repetitions === "") {
+    delete req.body.repetitions;
+  }
+  if (req.body.date === "") {
+    delete req.body.date;
+  }
+  if (req.body.notes === "") {
+    delete req.body.notes;
   }
 
   next();

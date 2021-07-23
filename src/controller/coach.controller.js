@@ -26,10 +26,9 @@ module.exports = {
     }
   },
 
-
-	async show(req, res) {
-    try{
-      const { coachId } = req
+  async show(req, res) {
+    try {
+      const { coachId } = req;
 
       const coach = await Coach.findById(coachId);
       res.status(200).json(coach);
