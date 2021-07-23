@@ -74,8 +74,7 @@ module.exports = {
       const { body } = req;
       const admin = await Admin.create(body);
       res.status(201).json(admin);
-      //await welcomeAdmin(admin);
-      res.status(201).json({ message: "Revisa el correo" });
+      await welcomeAdmin(admin);
     } catch (error) {
       res.status(400).json("Error registrando un administrador");
     }

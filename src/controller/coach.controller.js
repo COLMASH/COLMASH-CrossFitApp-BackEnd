@@ -19,16 +19,13 @@ module.exports = {
 
   async create(req, res) {
     try {
-      
       const { body } = req;
       const coach = await Coach.create(body);
       res.status(201).json(coach);
-      
     } catch (error) {
-      res.status(400).json("Error registrando un administrador");
+      res.status(400).json("Error registrando un coach");
     }
   },
-
   async list(req, res) {
     try {
       const coaches = await Coach.find({}).select({ password: 0 });
