@@ -10,7 +10,7 @@ module.exports = {
       const admins = await Admin.find({}).select({ password: 0 });
       res.status(200).json(admins);
     } catch (err) {
-      res.status(400).json({ message: "Error en la obtención de los datos." });
+      res.status(400).json({ message: err.message });
     }
   },
 
@@ -74,7 +74,7 @@ module.exports = {
       const { body } = req;
       const admin = await Admin.create(body);
       res.status(201).json(admin);
-      await welcomeAdmin(admin);
+      //await welcomeAdmin(admin);
       res.status(201).json({ message: "Revisa el correo" });
     } catch (error) {
       res.status(400).json("Error registrando un administrador");
@@ -108,6 +108,7 @@ module.exports = {
           birthday: admin.birthday,
           email: admin.email,
           phone: admin.phone,
+          profilePicture: admin.profilePicture,
         },
       });
     } catch (error) {
