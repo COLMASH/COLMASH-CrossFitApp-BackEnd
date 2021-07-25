@@ -10,18 +10,31 @@ const wodSchema = new Schema(
       type: String,
       required: [true, "La modalidad del Wod es requerida."],
     },
-    exercices: {
+    exercice1: {
       type: String,
-      required: [true, "Los ejercicios del Wod son requeridos"],
+      required: [true, "Al menos un ejercicio debe ser seleccionado"],
     },
-    date: {
+    exercice2: String,
+    exercice3: String,
+    startDate: {
       type: Date,
-      required: [true, "La fecha del Wod es requerida"],
+      required: [true, "La fecha inicial del Wod es requerida"],
     },
-    repetitions: {
+    endDate: {
+      type: Date,
+      required: [true, "La fecha final del Wod es requerida"],
+    },
+    repetition1: {
       type: Number,
       required: [true, "Las repeticiones del ejercicio son requeridas"],
     },
+    repetition2: String,
+    repetition3: String,
+    capacity: {
+      type: Number,
+      required: [true, "La capacidad máxima de estudiantes es requerida"],
+    },
+    availableCapacity: Number,
     creator: {
       type: Schema.Types.ObjectId,
       ref: "Coach",

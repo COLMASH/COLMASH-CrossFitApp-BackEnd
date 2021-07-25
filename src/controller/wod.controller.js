@@ -23,12 +23,12 @@ module.exports = {
   },
 
   async update(req, res) {
-    const { coachId, body } = req;
-    const wod = await Wod.findByIdAndUpdate({ creator: coachId }, body, {
-      new: true,
-    });
-    res.status(200).json(wod);
     try {
+      const { wodId } = req.body;
+      const wod = await Wod.findByIdAndUpdate(wodId, req.body, {
+        new: true,
+      });
+      res.status(200).json(wod);
     } catch (error) {
       res.status(400).json({ message: error.message });
     }
