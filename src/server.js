@@ -9,12 +9,12 @@ const userRouter = require("./routes/user");
 const coachRouter = require("./routes/coach");
 const adminRouter = require("./routes/admin");
 const wodRouter = require("./routes/wod");
-
-const { auth } = require("./utils/middlewares");
-
+const activityRouter = require("./routes/activity");
+const modalityRouter = require("./routes/modality");
+const exerciseRouter = require("./routes/exercise");
 const planRouter = require("./routes/plan");
 
-const exerciseRouter = require("./routes/exercise");
+const { auth } = require("./utils/middlewares");
 
 const port = process.env.PORT || 8000;
 const app = express();
@@ -35,6 +35,8 @@ app.use("/admin", adminRouter);
 app.use("/plan", planRouter);
 app.use("/exercise", exerciseRouter);
 app.use("/wod", wodRouter);
+app.use("/activity", activityRouter);
+app.use("/modality", modalityRouter);
 
 app.get("/", auth, (req, res) => {
   res.status(200).json({ message: "estás autenticado" });

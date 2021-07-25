@@ -190,3 +190,19 @@ exports.wodFilter = (req, res, next) => {
 
   next();
 };
+
+exports.planFilter = (req, res, next) => {
+  if (req.body.plan === "") {
+    delete req.body.plan;
+  }
+  if (req.body.validity === "") {
+    delete req.body.validity;
+  }
+  if (req.body.credits === "") {
+    delete req.body.credits;
+  }
+  if (req.body.price === "") {
+    delete req.body.price;
+  }
+  next();
+};

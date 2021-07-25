@@ -4,8 +4,8 @@ module.exports = {
   async create(req, res) {
     try {
       const { body } = req;
-      const plans = await Plan.create(body);
-      res.status(201).json(plans);
+      const plan = await Plan.create(body);
+      res.status(201).json(plan);
     } catch (err) {
       res.status(400).json({ message: "Error en la creación del plan" });
     }
@@ -17,16 +17,6 @@ module.exports = {
       res.status(200).json(plans);
     } catch (err) {
       res.status(400).json({ message: "Error en la obtención de los datos." });
-    }
-  },
-
-  async show(req, res) {
-    try {
-      const { planId } = req.params;
-      const plan = await Plan.findById(planId);
-      res.status(200).json(plan);
-    } catch (err) {
-      res.status(404).json({ message: err.message });
     }
   },
 
@@ -42,7 +32,7 @@ module.exports = {
 
   async destroy(req, res) {
     try {
-      const { planId } = req.params;
+      const { planId } = req.body;
       const plan = await Plan.findByIdAndDelete(planId);
       res.status(200).json(plan);
     } catch (err) {
