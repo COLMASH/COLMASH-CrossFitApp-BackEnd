@@ -196,10 +196,10 @@ exports.wodFilter = (req, res, next) => {
   if (req.body.capacity === "") {
     delete req.body.capacity;
   }
-  if (req.body.startDate === "") {
+  if (req.body.startDate === null) {
     delete req.body.startDate;
   }
-  if (req.body.endDate === "") {
+  if (req.body.endDate === null) {
     delete req.body.endDate;
   }
   if (req.body.notes === "") {
