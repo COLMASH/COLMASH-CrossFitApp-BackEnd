@@ -5,7 +5,6 @@ module.exports = {
     try {
       const { body } = req;
       const exercise = await Exercise.create(body);
-
       res.status(201).json(exercise);
     } catch (err) {
       res.status(400).json({ message: err.message });
@@ -21,20 +20,9 @@ module.exports = {
     }
   },
 
-  async show(req, res) {
-    try {
-      const { exerciseId } = req.params;
-      console.log(exerciseId);
-      const exercise = await Exercise.findById(exerciseId);
-      res.status(200).json(exercise);
-    } catch (err) {
-      res.status(404).json({ message: "Error en la obtención de los datos." });
-    }
-  },
-
   async destroy(req, res) {
     try {
-      const { exerciseId } = req.params;
+      const { exerciseId } = req.body;
       const exercise = await Exercise.findByIdAndDelete(exerciseId);
       res.status(200).json(exercise);
     } catch (err) {

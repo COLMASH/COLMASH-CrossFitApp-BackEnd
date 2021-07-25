@@ -2,7 +2,7 @@ const { Schema, model, models } = require("mongoose");
 
 const planSchema = new Schema(
   {
-    name: {
+    plan: {
       type: String,
       required: [true, "El nombre del plan es requerido."],
     },
@@ -11,11 +11,11 @@ const planSchema = new Schema(
       required: [true, "La vigencia del plan es requerida."],
     },
     credits: {
-      type: String,
+      type: Number,
       required: [true, "El número de créditos es requerido"],
     },
     price: {
-      type: String,
+      type: Number,
       required: [true, "El precio del plan es requerido"],
     },
   },

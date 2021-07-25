@@ -2,14 +2,14 @@ const { Schema, model, models } = require("mongoose");
 
 const exerciseSchema = new Schema(
   {
-    name: {
+    exercise: {
       type: String,
       required: [true, "El nombre del ejercicio es requerido."],
     },
-    category: {
+    unitMeasurement: {
       type: String,
     },
-    linkVideo: {
+    video: {
       type: String,
     },
   },
