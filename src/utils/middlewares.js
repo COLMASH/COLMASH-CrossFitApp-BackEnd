@@ -175,14 +175,32 @@ exports.wodFilter = (req, res, next) => {
   if (req.body.modality === "") {
     delete req.body.modality;
   }
-  if (req.body.exercices === "") {
-    delete req.body.exercices;
+  if (req.body.exercice1 === "") {
+    delete req.body.exercice1;
   }
-  if (req.body.repetitions === "") {
-    delete req.body.repetitions;
+  if (req.body.exercice2 === "") {
+    delete req.body.exercice2;
   }
-  if (req.body.date === "") {
-    delete req.body.date;
+  if (req.body.exercice3 === "") {
+    delete req.body.exercice3;
+  }
+  if (req.body.repetition1 === "") {
+    delete req.body.repetition1;
+  }
+  if (req.body.repetition2 === "") {
+    delete req.body.repetition2;
+  }
+  if (req.body.repetition3 === "") {
+    delete req.body.repetition3;
+  }
+  if (req.body.capacity === "") {
+    delete req.body.capacity;
+  }
+  if (req.body.startDate === null) {
+    delete req.body.startDate;
+  }
+  if (req.body.endDate === null) {
+    delete req.body.endDate;
   }
   if (req.body.notes === "") {
     delete req.body.notes;
