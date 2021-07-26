@@ -13,6 +13,7 @@ const activityRouter = require("./routes/activity");
 const modalityRouter = require("./routes/modality");
 const exerciseRouter = require("./routes/exercise");
 const planRouter = require("./routes/plan");
+const newsRouter = require("./routes/news");
 
 const { auth } = require("./utils/middlewares");
 
@@ -37,6 +38,7 @@ app.use("/exercise", exerciseRouter);
 app.use("/wod", wodRouter);
 app.use("/activity", activityRouter);
 app.use("/modality", modalityRouter);
+app.use("/news", newsRouter);
 
 app.get("/", auth, (req, res) => {
   res.status(200).json({ message: "estás autenticado" });
