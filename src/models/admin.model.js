@@ -37,7 +37,7 @@ const adminSchema = new Schema(
               .then((admin) => !admin)
               .catch(() => false);
           },
-          message: "El correo ya etá en uso",
+          message: "El correo ya está en uso",
         },
       ],
     },
@@ -51,6 +51,8 @@ const adminSchema = new Schema(
     },
     profilePicture: {
       type: String,
+      default:
+        "https://res.cloudinary.com/mashcol/image/upload/v1626054119/crossfitapp-profileImages/john-doe_lny628.png",
     },
   },
   {
