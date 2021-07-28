@@ -24,10 +24,10 @@ module.exports = {
   },
 
   async update(req, res) {
-    const { userId, body } = req;
-    const user = await User.findByIdAndUpdate(userId, body, { new: true });
-    res.status(200).json(user);
     try {
+      const { userId, body } = req;
+      const user = await User.findByIdAndUpdate(userId, body, { new: true });
+      res.status(200).json(user);
     } catch (error) {
       res.status(400).json({ message: error.message });
     }
@@ -48,7 +48,7 @@ module.exports = {
       const { body } = req;
       const user = await User.create(body);
 
-      const token = jwt.sign({ userId: user.id }, process.env.SECRET, {
+      const token = jwt.sign({ userId: user._id }, process.env.SECRET, {
         expiresIn: 60 * 60 * 24 * 365,
       });
       await welcome(user);
