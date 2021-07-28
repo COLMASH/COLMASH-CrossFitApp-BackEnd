@@ -52,7 +52,7 @@ module.exports = {
         throw new Error("El entrenador no existe");
       }
       const wod = await Wod.create({ ...body, creator: coachId });
-      coach.wods.push(wod._id);
+      await Coach.updateOne({ _id: coachId }, { $addToSet: { wods: wod._id } });
       res.status(201).json(wod);
     } catch (error) {
       res.status(400).json({ message: error.message });

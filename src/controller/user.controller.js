@@ -48,7 +48,7 @@ module.exports = {
       const { body } = req;
       const user = await User.create(body);
 
-      const token = jwt.sign({ userId: user._id }, process.env.SECRET, {
+      const token = jwt.sign({ userId: user.id }, process.env.SECRET, {
         expiresIn: 60 * 60 * 24 * 365,
       });
       await welcome(user);
@@ -97,4 +97,29 @@ module.exports = {
       res.status(400).json({ message: error.message });
     }
   },
+
+  async showWods(req, res) {
+    try {
+      const { userId } = req;
+      const wods = await Wod.find({ users: userId }).populate("creator");
+      res.status(200).json(wods);
+    } catch (error) {
+      res.status(404).json({ message: error.message });
+    }
+  },
+
+  async suscribeWod(req, res) {
+    try {
+      const { wodId } = req.body;
+      const { userId } = req;
+      await User.updateOne({ _id: userId }, { $addToSet: { wods: wodId } });
+      await Wod.updateOne({ _id: wodId }, { $addToSet: { users: userId } });
+      const user = await User.findById(userId).populate("wods");
+      res.status(200).json(user);
+    } catch (error) {
+      res.status(400).json({ message: error.message });
+    }
+  },
 };
+
+// $pull;
