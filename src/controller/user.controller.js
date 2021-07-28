@@ -1,4 +1,6 @@
 const User = require("../models/user.model");
+const Wod = require("../models/wod.model");
+const Coach = require("../models/coach.model");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const { welcome } = require("../utils/mailer");
@@ -98,16 +100,6 @@ module.exports = {
     }
   },
 
-  async showWods(req, res) {
-    try {
-      const { userId } = req;
-      const wods = await Wod.find({ users: userId }).populate("creator");
-      res.status(200).json(wods);
-    } catch (error) {
-      res.status(404).json({ message: error.message });
-    }
-  },
-
   async suscribeWod(req, res) {
     try {
       const { wodId } = req.body;
@@ -120,6 +112,30 @@ module.exports = {
       res.status(400).json({ message: error.message });
     }
   },
-};
 
-// $pull;
+  async showWods(req, res) {
+    try {
+      const { userId } = req;
+      const user = await User.findById(userId).populate({
+        path: "wods",
+        populate: { path: "creator", model: "Coach" },
+      });
+      res.status(200).json(user);
+    } catch (error) {
+      res.status(404).json({ message: error.message });
+    }
+  },
+
+  async unsuscribeWod(req, res) {
+    try {
+      const { wodId } = req.body;
+      const { userId } = req;
+      await User.updateOne({ _id: userId }, { $pull: { wods: wodId } });
+      await Wod.updateOne({ _id: wodId }, { $pull: { users: userId } });
+      const wodUnsuscribed = await Wod.findById(wodId);
+      res.status(200).json(wodUnsuscribed);
+    } catch (error) {
+      res.status(400).json({ message: error.message });
+    }
+  },
+};

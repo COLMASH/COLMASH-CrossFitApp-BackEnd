@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 module.exports = {
   async list(req, res) {
     try {
-      const wod = await Wod.findById().populate("creator", "name");
+      const wod = await Wod.find().populate("creator");
       res.status(200).json(wod);
     } catch (error) {
       res.status(404).json({ message: error.message });
