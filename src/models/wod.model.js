@@ -41,6 +41,9 @@ const wodSchema = new Schema(
       required: true,
     },
     notes: String,
+    users: {
+      type: [{ type: Schema.Types.ObjectId, ref: "User" }],
+    },
   },
   {
     timestamps: true,
