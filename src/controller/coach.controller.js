@@ -3,20 +3,6 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
 module.exports = {
-  async signup(req, res) {
-    try {
-      const { body } = req;
-      const coach = await Coach.create(body);
-      const token = jwt.sign({ coachId: coach._id }, process.env.SECRET, {
-        expiresIn: 60 * 60 * 24 * 365,
-      });
-
-      res.status(201).json({ token });
-    } catch (err) {
-      res.status(400).json({ message: err.message });
-    }
-  },
-
   async create(req, res) {
     try {
       const { body } = req;
