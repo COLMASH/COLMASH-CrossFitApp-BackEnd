@@ -104,10 +104,18 @@ module.exports = {
     try {
       const { wodId } = req.body;
       const { userId } = req;
-      await User.updateOne({ _id: userId }, { $addToSet: { wods: wodId } });
-      await Wod.updateOne({ _id: wodId }, { $addToSet: { users: userId } });
-      const user = await User.findById(userId).populate("wods");
-      res.status(200).json(user);
+      let wodInit = await Wod.findById(wodId);
+      let userInit = await User.findById(userId);
+      if (wodInit.users.length === wodInit.capacity) {
+        res.status(200).json("full");
+      } else if (userInit.wods.includes(wodId)) {
+        res.status(200).json("already");
+      } else {
+        await User.updateOne({ _id: userId }, { $addToSet: { wods: wodId } });
+        await Wod.updateOne({ _id: wodId }, { $addToSet: { users: userId } });
+        let user = await User.findById(userId).populate("wods");
+        res.status(200).json(user);
+      }
     } catch (error) {
       res.status(400).json({ message: error.message });
     }
